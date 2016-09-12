@@ -7,12 +7,14 @@ const expressJWT = require('express-jwt');
 
 const app        = express();
 const router     = require('./config/routes');
+const webRouter  = require('./config/webRoutes');
 const config     = require('./config/config');
 
 mongoose.connect(config.db);
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
+app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api", expressJWT({ secret: config.secret })
@@ -23,6 +25,7 @@ app.use("/api", expressJWT({ secret: config.secret })
     ]
   })
 );
+app.use("/", webRouter);
 app.use("/api", router);
 
 app.use(jwtErrorHandler);
