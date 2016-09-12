@@ -25,5 +25,32 @@
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
     "morgan": "^1.7.0"
-  }
-}
+  },
+
+"devDependencies": {
+   "babel-cli": "^6.14.0",
+   "babel-preset-es2015": "^6.14.0",
+   "del": "^2.2.2",
+   "gulp": "^3.9.1",
+   "gulp-autoprefixer": "^3.1.1",
+   "gulp-babel": "^6.1.2",
+   "gulp-bower": "0.0.13",
+   "gulp-cached": "^1.1.0",
+   "gulp-clean-css": "^2.0.12",
+   "gulp-concat": "^2.6.0",
+   "gulp-cssnano": "^2.1.2",
+   "gulp-filter": "^4.0.0",
+   "gulp-flatten": "^0.3.1",
+   "gulp-livereload": "^3.8.1",
+   "gulp-nodemon": "^2.1.0",
+   "gulp-order": "^1.1.1",
+   "gulp-plumber": "^1.1.0",
+   "gulp-replace": "^0.5.4",
+   "gulp-sass": "^2.3.2",
+   "gulp-strip-comments": "^2.4.3",
+   "gulp-strip-css-comments": "^1.2.0",
+   "gulp-uglify": "^2.0.0",
+   "gulp-wait": "0.0.2",
+   "main-bower-files": "^2.13.1"
+ }
+ }
