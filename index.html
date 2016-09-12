@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable-no">
-    <meta charset="utf-8">
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkn0d06-Wg9axUBDTMWtk4z0TuNDA-B9Q&callback=initMap"
-  async defer></script>
-  <script src="main.js">
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable-no">
+  <meta charset="utf-8">
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkn0d06-Wg9axUBDTMWtk4z0TuNDA-B9Q&callback=initMap"
+async defer></script>
+<script src="main.js">
 
-  </script>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
+</script>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 100%;
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar navbar-dark bg-inverse">
+        <a class="navbar-brand home" href="/login">login</a>
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link index" href="/register">register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link new" href="#">sign out</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="text-center">Gluten-Free Brighton</h1>
+      </div>
+      <div class="modal-body">
+        <form class="col-md-12 center-block">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control input-lg" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-block btn-lg btn-primary" value="Login">
+            <span class="pull-right"><a href="#">Register</a><a href="#">Forgot Password</a></span>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <div class="col-md-12">
+            <button class="button">Cancel</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
     <div id="map"></div>
   </body>
-</html>
+  </html>
