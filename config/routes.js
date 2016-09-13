@@ -1,19 +1,16 @@
 const express = require('express');
 const router  = express.Router();
 
-const authentications = require("../controllers/authentications");
-const restaurants     = require("../controllers/restaurants");
+const authenticationsController = require("../controllers/authentications");
+const restaurantsController     = require("../controllers/restaurants");
+
 
 router.route("/register")
-  .post(authentications.register);
+  .post(authenticationsController.register);
 router.route("/login")
-  .post(authentications.login);
-// router.route("/restaurants")
-//   .get();
-
-
+  .post(authenticationsController.login);
 router.route("/restaurants")
-  .get(restaurants.index);
+  .get(restaurantsController.index);
 // router.route("/restaurants/:id")
 //   .get(restaurants.show);
 

@@ -6,8 +6,8 @@ const mongoose   = require('mongoose');
 const expressJWT = require('express-jwt');
 
 const app        = express();
-const router     = require('./config/routes');
-const webRouter  = require('./config/webRoutes');
+const routes     = require('./config/routes');
+const webRoutes  = require('./config/webRoutes');
 const config     = require('./config/config');
 const User       = require('./models/user');
 
@@ -26,8 +26,8 @@ app.use("/api", expressJWT({ secret: config.secret })
     ]
   })
 );
-app.use("/", webRouter);
-app.use("/api", router);
+app.use("/", webRoutes);
+app.use("/api", routes);
 
 app.use(jwtErrorHandler);
 
