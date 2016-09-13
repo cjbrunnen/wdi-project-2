@@ -9,6 +9,7 @@ const app        = express();
 const router     = require('./config/routes');
 const webRouter  = require('./config/webRoutes');
 const config     = require('./config/config');
+const User       = require('./models/user');
 
 mongoose.connect(config.db);
 

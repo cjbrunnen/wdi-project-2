@@ -209,11 +209,106 @@ App.mapSetup = function() {
 
 App.init = function() {
   this.mapSetup();
-  this.eventListeners();
+
+  $(".register").on("click", this.register);
+  $(".login").on("click", this.login);
+  $(".logout").on("click", this.logout);
+
+
+  this.apiUrl = "http://localhost:3000/api";
+  this.$main = $("main");
+
+  this.$main.on("submit", "form", this.handleForm); // 2
 };
 
-App.eventListeners = function() {
-  $('.location').on('click', this.getCurrentLocation);
-};
+App.register = function(){
+  event.preventDefault();
+  $('register-container').html(`
+    <h2>Register</h2>
+    <form method="post" action="/register">
+    <div class="form-group">
+    <input class="form-control" type="text" name="user[username]" placeholder="Username">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="email" name="user[email]" placeholder="Email">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="password" name="user[password]" placeholder="Password">
+    </div>
+    <div class="form-group">
+    <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+    `);
+    return showContent("register");
+  };
 
-$(App.init.bind(App));
+
+  App.login = function(){
+    event.preventDefault();
+    App.$main.html(`
+      <h2>Login</h2>
+      <form method="post" action="/login">
+      <div class="form-group">
+      <input class="form-control" type="email" name="email" placeholder="Email">
+      </div>
+      <div class="form-group">
+      <input class="form-control" type="password" name="password" placeholder="Password">
+      </div>
+      <input class="btn btn-primary" type="submit" value="login">
+      </form>
+      `);
+      return showContent("login");
+    };
+
+    App.logout = function(){
+      event.preventDefault();
+      App.$main.html(`
+        <h2>Thanks for visiting</h2><br>
+        <h4>Login again?</h4>
+        <form method="post" action="/login">
+        <div class="form-group">
+        <input class="form-control" type="email" name="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+        <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <input class="btn btn-primary" type="submit" value="login">
+        </form>
+        `);
+        return showContent("login");
+      };
+
+
+    App.handleForm = function(){
+      event.preventDefault();
+      let url    = `${App.apiUrl}${$(this).attr("action")}`;
+      let method = $(this).attr("method");
+      let data   = $(this).serialize();
+      return App.ajaxRequest(url, method, data, (data) => {
+        if (data.token) App.setToken(data.token);
+        console.log(data);
+      });
+    };
+    App.ajaxRequest = function(url, method, data, callback){
+      return $.ajax({
+        url,
+        method,
+        data,
+        beforeSend: this.setRequestHeader.bind(this)
+      })
+      .done(callback)
+      .fail(data => {
+        console.log(data);
+      });
+  };
+
+  function showContent(id) {
+  // Hide all of the sections
+  $("section").hide();
+  // Show the section that you want to display
+  $(`#${id}-content`).show();
+}
+
+  $(App.init.bind(App));
