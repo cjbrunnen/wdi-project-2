@@ -48,7 +48,7 @@ gulp.task('bower:js', () => gulp.src(bower)
   .pipe(gulp.dest(`${src}/js`)));
 gulp.task('bower:css', () => gulp.src(bower)
   .pipe(cache('bower:css'))
-  .pipe(filter(['**/*.css}']))
+  .pipe(filter(['**/*.css']))
   .pipe(concat('_bower.scss'))
   .pipe(stripCssComments())
   .pipe(gulp.dest(`${src}/scss`)));

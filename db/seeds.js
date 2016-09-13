@@ -8,11 +8,11 @@ const Restaurant = require("../models/restaurant");
 // Building the query
 const q          = encodeURIComponent("Brighton Gluten Free");
 const lat        = 50.822545;
-const lon        = -0.1439147;
+const lng        = -0.1439147;
 const radius     = 2500;
 const count      = 20;
 let start        = 0;
-let uri          = `https://developers.zomato.com/api/v2.1/search?q=${q}&count=${count}&lat=${lat}&lon=${lon}&radius=${radius}&start=${start}`;
+let uri          = `https://developers.zomato.com/api/v2.1/search?q=${q}&count=${count}&lat=${lat}&lng=${lng}&radius=${radius}&start=${start}`;
 
 mongoose.connect(config.db);
 
@@ -44,7 +44,7 @@ function getRestaurants(uri){
           restaurantData.lng   = result.restaurant.location.longitude;
         }
 
-        restaurantData.image = result.restaurant.photos_url;
+        restaurantData.image = result.restaurant.thumb;
 
         // Returns a promise
         return Restaurant.create(restaurantData);
@@ -54,11 +54,12 @@ function getRestaurants(uri){
       if (!data) return process.exit();
 
       // Let us know what we did
+      data.forEach(restaurant => Restaurant.create(restaurant));
       data.forEach(restaurant => console.log(`${restaurant.name} was saved`));
 
       // Make a new request increasing the starting number that we look from
       start += 20;
-      let uri = `https://developers.zomato.com/api/v2.1/search?q=${q}&count=${count}&lat=${lat}&lon=${lon}&radius=${radius}&start=${start}`;
+      let uri = `https://developers.zomato.com/api/v2.1/search?q=${q}&count=${count}&lat=${lat}&lng=${lng}&radius=${radius}&start=${start}`;
 
       // Recusively call the function getRestaurants
       return getRestaurants(uri);

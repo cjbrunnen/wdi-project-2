@@ -1,6 +1,6 @@
 
 // // TAKEN FROM MUNCH HUB EXAMPLE -------------------------------
-// // const googleMap = googleMap || {};
+// // const App = googleMap || {};
 // //
 // // googleMap.api_url = "http://localhost:3000/api";
 // //
@@ -232,6 +232,7 @@ App.register = function(){
     };
 
     App.mapSetup = function() {
+
       this.$main.html(`<div id="map-canvas"></div>`);
 
       let canvas = document.getElementById('map-canvas');
@@ -243,6 +244,81 @@ App.register = function(){
       };
 
       this.map = new google.maps.Map(canvas, mapOptions);
+      this.getRestaurants();
     };
+
+    App.getRestaurants = function(){
+     return $.get(`${this.apiUrl}/restaurants`).done(this.loopThroughRestaurants.bind(this));
+    };
+
+    App.loopThroughRestaurants = function(data) {
+      console.log("im trying to work");
+      return $.each(data.restaurants, this.createMarkerForRestaurant.bind(this));
+    };
+
+    App.createMarkerForRestaurant = function(index, restaurant) {
+      let latlng = new google.maps.LatLng(restaurant.lat, restaurant.lng);
+      let marker = new google.maps.Marker({
+        position: latlng,
+        map: this.map,
+        // icon: {
+        //   url: "map-pin-icon.png",
+        //   scaledSize: new google.maps.Size(56, 56)
+        // }
+      });
+      this.addInfoWindowForRestaurant(restaurant, marker);
+    };
+
+
+    App.addInfoWindowForRestaurant = function(restaurant, marker) {
+      google.maps.event.addListener(marker, 'click', () => {
+        if (typeof this.infowindow != "undefined") this.infowindow.close();
+
+        this.infowindow = new google.maps.InfoWindow({
+          content: `
+          <div class="info">
+          <img src="${ restaurant.image}">
+          <h3>${ restaurant.name }</h3>
+          </div>
+          `
+        });
+        this.infowindow.open(this.map, marker);
+        this.map.setCenter(marker.getPosition());
+      });
+    };
+
+
+
+
+
+
+    // App.addRestaurant = function() {
+    //   event.preventDefault();
+    //   $.ajax({
+    //     method: "POST",
+    //     url: "http://localhost:3000/api/restaurants",
+    //     data: $(this).serialize()
+    //   }).done(data => {
+    //     console.log(data.restaurant);
+    //     App.createMarkerForRestaurant(null, data.restaurant);
+    //     $('form').reset().hide();
+    //   });
+    // };
+    //
+    // App.getCurrentLocation = function() {
+    //   navigator.geolocation.getCurrentPosition(function(position) {
+    //     let marker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+    //       map: googleMap.map,
+    //       animation: google.maps.Animation.DROP,
+    //       icon: {
+    //         url: "http://furtaev.ru/preview/user_on_map_2_small.png",
+    //         scaledSize: new google.maps.Size(56, 56)
+    //       }
+    //     });
+    //
+    //     App.map.setCenter(marker.getPosition());
+    //   });
+    // };
 
     $(App.init.bind(App));
