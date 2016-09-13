@@ -196,6 +196,8 @@
 const App = App || {};
 
 App.mapSetup = function() {
+  this.$main.html(`<div id="map-canvas"></div>`);
+
   let canvas = document.getElementById('map-canvas');
 
   let mapOptions = {
@@ -208,22 +210,24 @@ App.mapSetup = function() {
 };
 
 App.init = function() {
-  this.mapSetup();
-
-  $(".register").on("click", this.register);
-  $(".login").on("click", this.login);
-  $(".logout").on("click", this.logout);
-
-
   this.apiUrl = "http://localhost:3000/api";
-  this.$main = $("main");
+  this.$main  = $("main");
 
-  this.$main.on("submit", "form", this.handleForm); // 2
+  $(".register").on("click", this.register.bind(this));
+  $(".login").on("click", this.login.bind(this));
+  $(".logout").on("click", this.logout.bind(this));
+  this.$main.on("submit", "form", this.handleForm);
+
+  if (this.getToken()) {
+    this.loggedInState();
+  } else {
+    this.loggedOutState();
+  }
 };
 
 App.register = function(){
-  event.preventDefault();
-  $('register-container').html(`
+  if(event) event.preventDefault();
+  this.$main.html(`
     <h2>Register</h2>
     <form method="post" action="/register">
     <div class="form-group">
@@ -241,13 +245,12 @@ App.register = function(){
     <input class="btn btn-primary" type="submit" value="Register">
     </form>
     `);
-    return showContent("register");
   };
 
 
   App.login = function(){
-    event.preventDefault();
-    App.$main.html(`
+    if(event) event.preventDefault();
+    this.$main.html(`
       <h2>Login</h2>
       <form method="post" action="/login">
       <div class="form-group">
@@ -259,38 +262,29 @@ App.register = function(){
       <input class="btn btn-primary" type="submit" value="login">
       </form>
       `);
-      return showContent("login");
     };
 
-    App.logout = function(){
+    App.logout = function() {
       event.preventDefault();
-      App.$main.html(`
-        <h2>Thanks for visiting</h2><br>
-        <h4>Login again?</h4>
-        <form method="post" action="/login">
-        <div class="form-group">
-        <input class="form-control" type="email" name="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-        <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="login">
-        </form>
-        `);
-        return showContent("login");
-      };
-
+      this.removeToken();
+      this.loggedOutState();
+    };
 
     App.handleForm = function(){
       event.preventDefault();
+
       let url    = `${App.apiUrl}${$(this).attr("action")}`;
       let method = $(this).attr("method");
       let data   = $(this).serialize();
+
+      $(this).trigger("reset");
+
       return App.ajaxRequest(url, method, data, (data) => {
         if (data.token) App.setToken(data.token);
-        console.log(data);
+        App.loggedInState();
       });
     };
+
     App.ajaxRequest = function(url, method, data, callback){
       return $.ajax({
         url,
@@ -302,13 +296,38 @@ App.register = function(){
       .fail(data => {
         console.log(data);
       });
-  };
+    };
 
-  function showContent(id) {
-  // Hide all of the sections
-  $("section").hide();
-  // Show the section that you want to display
-  $(`#${id}-content`).show();
-}
+    App.loggedInState = function(){
+      $(".loggedOut").hide();
+      $(".loggedIn").show();
 
-  $(App.init.bind(App));
+      this.mapSetup();
+    };
+
+    App.loggedOutState = function(){
+      $(".loggedOut").show();
+      $(".loggedIn").hide();
+
+      this.login();
+    };
+
+
+    App.setRequestHeader = function(xhr, settings) {
+      return xhr.setRequestHeader("Authorization", `Bearer ${this.getToken()}`);
+    };
+
+    App.setToken = function(token){
+      return window.localStorage.setItem("token", token);
+    };
+
+    App.getToken = function(){
+      return window.localStorage.getItem("token");
+    };
+
+    App.removeToken = function(){
+      return window.localStorage.clear();
+    };
+
+
+    $(App.init.bind(App));
