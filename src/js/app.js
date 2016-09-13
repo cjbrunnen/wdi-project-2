@@ -1,88 +1,4 @@
-// const App = App || {};
-//
-// App.init = function(){
-//   $(".register").on("click", this.register);
-//   $(".login").on("click", this.login);
-//
-//   this.apiUrl = "http://localhost:3000/api";
-//   this.$main  = $("main");
-//
-//     this.$main.on("submit", "form", this.handleForm);
-// };
-//
-// App.register = function(){
-//   event.preventDefault();
-//   App.$main.html(`
-//     <div class="modal-dialog">
-//       <div class="modal-content">
-//         <div class="modal-header">
-//           <h1 class="text-center">Gluten-Free Brighton</h1>
-//         </div>
-//     <h2>Register</h2>
-//     <form method="post" action="/register">
-//     <div class="form-group">
-//     <input class="form-control" type="text" name="user[username]" placeholder="Username">
-//     </div>
-//     <div class="form-group">
-//     <input class="form-control" type="email" name="user[email]" placeholder="Email">
-//     </div>
-//     <div class="form-group">
-//     <input class="form-control" type="password" name="user[password]" placeholder="Password">
-//     </div>
-//     <div class="form-group">
-//     <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
-//     </div>
-//     <input class="btn btn-primary" type="submit" value="Register">
-//     </form>
-//     </div>
-//     </div>
-//     `);
-//   };
-//
-// App.login = function(){
-//     event.preventDefault();
-//     App.$main.html(`
-//       <div class="modal-dialog">
-//         <div class="modal-content">
-//           <div class="modal-header">
-//             <h1 class="text-center">Gluten-Free Brighton</h1>
-//           </div>
-//           <div class="modal-body">
-//             <form class="col-md-12 center-block">
-//               <div class="form-group">
-//                 <input type="text" class="form-control input-lg placeholder="Username">
-//               </div>
-//               <div class="form-group">
-//                 <input type="password" class="form-control input-lg placeholder="Password">
-//               </div>
-//               <div class="form-group">
-//                 <input type="submit" class="btn btn-block btn-lg btn-primary value="Login">
-//                 <span class="pull-right"><a href="#">Register</a>< href="#">Forgot Password</a></span>
-//               </div>
-//             </form>
-//             <div class="modal-footer">
-//               <div class="col-md-12">
-//                 <button class="button">Cancel</button>
-//               </div>
-//             </div>
-//         </div>
-//       </div>
-//       `);
-//     };
-//
-// App.handleForm = function(){
-//         event.preventDefault();
-//
-//         let url    = `${App.apiUrl}${$(this).attr("action")}`;
-//         let method = $(this).attr("method");
-//         let data   = $(this).serialize();
-//
-//         return App.ajaxRequest(url, method, data, (data) => {
-//           if (data.token) App.setToken(data.token);
-//           console.log(data);
-//         });
-//       };
-//
+
 // // TAKEN FROM MUNCH HUB EXAMPLE -------------------------------
 // // const googleMap = googleMap || {};
 // //
@@ -194,20 +110,6 @@
 
 
 const App = App || {};
-
-App.mapSetup = function() {
-  this.$main.html(`<div id="map-canvas"></div>`);
-
-  let canvas = document.getElementById('map-canvas');
-
-  let mapOptions = {
-    zoom: 15,
-    center: new google.maps.LatLng(50.824063, -0.147348),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  this.map = new google.maps.Map(canvas, mapOptions);
-};
 
 App.init = function() {
   this.apiUrl = "http://localhost:3000/api";
@@ -329,5 +231,18 @@ App.register = function(){
       return window.localStorage.clear();
     };
 
+    App.mapSetup = function() {
+      this.$main.html(`<div id="map-canvas"></div>`);
+
+      let canvas = document.getElementById('map-canvas');
+
+      let mapOptions = {
+        zoom: 15,
+        center: new google.maps.LatLng(50.824063, -0.147348),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      this.map = new google.maps.Map(canvas, mapOptions);
+    };
 
     $(App.init.bind(App));
