@@ -135,46 +135,52 @@ App.register = function(){
     };
 
     App.getRestaurants = function(){
-     console.log(this);
-     return $.get(`${this.apiUrl}/restaurants`).done(this.loopThroughRestaurants.bind(this));
+      return App.ajaxRequest(`${this.apiUrl}/restaurants`, "GET", null, this.loopThroughRestaurants.bind(this));
     };
 
     App.loopThroughRestaurants = function(data) {
-      console.log("NAT");
-      return $.each(data.restaurants, this.createMarkerForRestaurant.bind(this));
+      return $.each(data.restaurants, (index, restaurant) => App.createMarkerForRestaurant(restaurant));
     };
 
-    App.createMarkerForRestaurant = function(index, restaurant) {
+    App.createMarkerForRestaurant = function(restaurant) {
+      console.log(restaurant);
 
       let latlng = new google.maps.LatLng(restaurant.lat, restaurant.lng);
+
       let marker = new google.maps.Marker({
         position: latlng,
-        map: this.map,
-        // icon: {
-        //   url: "map-pin-icon.png",
-        //   scaledSize: new google.maps.Size(56, 56)
-        // }
+        map: this.map
       });
-      this.addInfoWindowForRestaurant(restaurant, marker);
+      
+      // let latlng = new google.maps.LatLng(restaurant.lat, restaurant.lng);
+      // let marker = new google.maps.Marker({
+      //   position: latlng,
+      //   map: this.map,
+      //   icon: {
+      //     url: "map-pin-icon.png",
+      //     scaledSize: new google.maps.Size(56, 56)
+      //   }
+      // });
+      // this.addInfoWindowForRestaurant(restaurant, marker);
     };
 
 
-    App.addInfoWindowForRestaurant = function(restaurant, marker) {
-      google.maps.event.addListener(marker, 'click', () => {
-        if (typeof this.infowindow != "undefined") this.infowindow.close();
-
-        this.infowindow = new google.maps.InfoWindow({
-          content: `
-          <div class="info">
-          <img src="${ restaurant.image }">
-          <h3>${ restaurant.name }</h3>
-          </div>
-          `
-        });
-        this.infowindow.open(this.map, marker);
-        this.map.setCenter(marker.getPosition());
-      });
-    };
+    // App.addInfoWindowForRestaurant = function(restaurant, marker) {
+    //   google.maps.event.addListener(marker, 'click', () => {
+    //     if (typeof this.infowindow != "undefined") this.infowindow.close();
+    //
+    //     this.infowindow = new google.maps.InfoWindow({
+    //       content: `
+    //       <div class="info">
+    //       <img src="${ restaurant.image }">
+    //       <h3>${ restaurant.name }</h3>
+    //       </div>
+    //       `
+    //     });
+    //     this.infowindow.open(this.map, marker);
+    //     this.map.setCenter(marker.getPosition());
+    //   });
+    // };
 
 
 
