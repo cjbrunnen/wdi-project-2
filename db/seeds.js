@@ -65,7 +65,7 @@ function getRestaurants(uri){
 
       // Let us know what we did
       data.forEach(restaurant => Restaurant.create(restaurant));
-      data.forEach(restaurant => console.log(`${restaurant.name} was saved`));
+      data.forEach(restaurant => console.log(`${restaurant.name} was saved. ${restaurant.data}`));
 
       // Make a new request increasing the starting number that we look from
       start += 20;

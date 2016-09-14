@@ -125,15 +125,17 @@ App.register = function(){
 
       let canvas = document.getElementById('map-canvas');
 
+
       let mapOptions = {
         zoom: 15,
         center: new google.maps.LatLng(50.820914, -0.139804),
         styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":"88"},{"hue":"#0021ff"},{"visibility":"on"},{"gamma":"2.59"},{"lightness":"0"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":"-27"},{"gamma":"1.74"},{"weight":"8.55"},{"lightness":"41"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"saturation":"-60"}]},{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"100"},{"gamma":"0.11"},{"lightness":"-6"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"saturation":"13"},{"weight":"1.00"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"hue":"#ff0000"}]},{"featureType":"administrative.country","elementType":"labels.text.stroke","stylers":[{"visibility":"simplified"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2dfdf"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":"33"},{"gamma":"0.89"},{"weight":"0.97"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-55"},{"lightness":"3"},{"gamma":"2.55"}]},{"featureType":"road","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"-99"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"saturation":"-100"},{"lightness":"100"},{"gamma":"8.65"},{"weight":"0.01"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"saturation":"-65"},{"lightness":"-61"},{"weight":"7.28"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#e03030"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"saturation":"100"}]},{"featureType":"road.highway.controlled_access","elementType":"all","stylers":[{"saturation":"-8"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"saturation":"7"}]},{"featureType":"transit.station.rail","elementType":"geometry","stylers":[{"saturation":"-72"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#ff9800"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"saturation":"-10"},{"lightness":"21"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"saturation":"37"}]}]
-
       };
+      
       this.map = new google.maps.Map(canvas, mapOptions);
       this.getRestaurants();
     };
+
 
     App.getRestaurants = function(){
       return App.ajaxRequest(`${this.apiUrl}/restaurants`, "GET", null, this.loopThroughRestaurants.bind(this));
