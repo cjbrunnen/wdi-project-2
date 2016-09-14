@@ -1,14 +1,3 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-#map-canvas {
-  width: 100%;
-  height: 100vh;
-
-}
-
-h2 {
-  background: #474748;
-}
+@import "partials/main";
+@import "partials/typography";
+@import "partials/forms";

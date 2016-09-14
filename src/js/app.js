@@ -127,8 +127,9 @@ App.register = function(){
 
       let mapOptions = {
         zoom: 15,
-        center: new google.maps.LatLng(50.824063, -0.147348),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        center: new google.maps.LatLng(50.820914, -0.139804),
+        styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":"88"},{"hue":"#0021ff"},{"visibility":"on"},{"gamma":"2.59"},{"lightness":"0"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":"-27"},{"gamma":"1.74"},{"weight":"8.55"},{"lightness":"41"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"saturation":"-60"}]},{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"100"},{"gamma":"0.11"},{"lightness":"-6"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"saturation":"13"},{"weight":"1.00"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"hue":"#ff0000"}]},{"featureType":"administrative.country","elementType":"labels.text.stroke","stylers":[{"visibility":"simplified"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2dfdf"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":"33"},{"gamma":"0.89"},{"weight":"0.97"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-55"},{"lightness":"3"},{"gamma":"2.55"}]},{"featureType":"road","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"-99"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"saturation":"-100"},{"lightness":"100"},{"gamma":"8.65"},{"weight":"0.01"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"saturation":"-65"},{"lightness":"-61"},{"weight":"7.28"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#e03030"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"saturation":"100"}]},{"featureType":"road.highway.controlled_access","elementType":"all","stylers":[{"saturation":"-8"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"saturation":"7"}]},{"featureType":"transit.station.rail","elementType":"geometry","stylers":[{"saturation":"-72"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#ff9800"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"saturation":"-10"},{"lightness":"21"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"saturation":"37"}]}]
+
       };
       this.map = new google.maps.Map(canvas, mapOptions);
       this.getRestaurants();
@@ -149,71 +150,39 @@ App.register = function(){
 
       let marker = new google.maps.Marker({
         position: latlng,
+        icon: {
+          url: "http://www.clker.com/cliparts/i/4/E/R/2/N/google-maps-icon-blank-4-md.png",
+          scaledSize: new google.maps.Size(20, 30)
+        },
         map: this.map
       });
-      
-      // let latlng = new google.maps.LatLng(restaurant.lat, restaurant.lng);
-      // let marker = new google.maps.Marker({
-      //   position: latlng,
-      //   map: this.map,
-      //   icon: {
-      //     url: "map-pin-icon.png",
-      //     scaledSize: new google.maps.Size(56, 56)
-      //   }
-      // });
-      // this.addInfoWindowForRestaurant(restaurant, marker);
+      App.addInfoWindowForRestaurant(restaurant, marker);
+    };
+
+    App.addInfoWindowForRestaurant = function(restaurant, marker) {
+      google.maps.event.addListener(marker, 'click', () => {
+        if (typeof this.infowindow != "undefined") this.infowindow.close();
+
+        this.infowindow = new google.maps.InfoWindow({
+          content: `
+          <div class="info">
+          <img src="${ restaurant.image }">
+          <h3>${ restaurant.name }</h3>
+          </div>
+          `
+        });
+        this.infowindow.open(this.map, marker);
+        this.map.setCenter(marker.getPosition());
+        App.bindInfoWindow(marker, this.map, this.infoWindow, this.html);
+      });
+    };
+
+    App.bindInfoWindow = function(marker, map, infoWindow, html) {
+      google.maps.event.addListener(marker, 'click', function() {
+       document.getElementById('.sidebar').innerHTML = html;
+      });
     };
 
 
-    // App.addInfoWindowForRestaurant = function(restaurant, marker) {
-    //   google.maps.event.addListener(marker, 'click', () => {
-    //     if (typeof this.infowindow != "undefined") this.infowindow.close();
-    //
-    //     this.infowindow = new google.maps.InfoWindow({
-    //       content: `
-    //       <div class="info">
-    //       <img src="${ restaurant.image }">
-    //       <h3>${ restaurant.name }</h3>
-    //       </div>
-    //       `
-    //     });
-    //     this.infowindow.open(this.map, marker);
-    //     this.map.setCenter(marker.getPosition());
-    //   });
-    // };
-
-
-
-
-
-    //
-    // App.addRestaurant = function() {
-    //   event.preventDefault();
-    //   $.ajax({
-    //     method: "POST",
-    //     url: "http://localhost:3000/api/restaurants",
-    //     data: $(this).serialize()
-    //   }).done(data => {
-    //     console.log(data.restaurant);
-    //     App.createMarkerForRestaurant(null, data.restaurant);
-    //     $('form').reset().hide();
-    //   });
-    // };
-    //
-    // App.getCurrentLocation = function() {
-    //   navigator.geolocation.getCurrentPosition(function(position) {
-    //     let marker = new google.maps.Marker({
-    //       position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-    //       map: googleMap.map,
-    //       animation: google.maps.Animation.DROP,
-    //       icon: {
-    //         url: "http://furtaev.ru/preview/user_on_map_2_small.png",
-    //         scaledSize: new google.maps.Size(56, 56)
-    //       }
-    //     });
-    //
-    //     App.map.setCenter(marker.getPosition());
-    //   });
-    // };
 
     $(App.init.bind(App));

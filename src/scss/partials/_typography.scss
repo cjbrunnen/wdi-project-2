@@ -1,0 +1,36 @@
+h1 {
+  font-weight: 300;
+  color: #808c99;
+  font-size: 4em;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#wordOne {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+}
+
+#wordTwo {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+}
+
+h2 {
+  color: #F6F6F6;
+  background: #474748;
+  font-family: 'Josefin Sans', sans-serif
+}
+
+a {
+  text-decoration: none;
+  color: #c69;
+  font-family: 'Josefin Sans', sans-serif;
+  list-style: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.info {
+  font-family: 'Josefin Sans', sans-serif
+}
