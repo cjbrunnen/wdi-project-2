@@ -97,9 +97,15 @@ a {
   bottom: 0px;
   float: left;
   clear: both;
+  line-height: 47px;
 
   .links{
     list-style: none;
     text-align: center;
   }
+}
+
+
+.gmnoprint {
+  display: none;
 }
