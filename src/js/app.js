@@ -19,26 +19,35 @@ App.init = function() {
 App.register = function(){
   if(event) event.preventDefault();
   this.$main.html(`
-    <h2>Register</h2>
-    <form method="post" action="/register">
-    <div class="form-group">
-    <label for="registerForm">Username</label><br>
-    <input class="form-control" type="text" name="user[username]" placeholder="Username">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <form method="post" action="/register">
+            <h2>Signup</h2>
+            <div class="form-group">
+              <label for="registerForm">Username</label><br>
+              <input class="form-control" type="text" name="user[username]" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="registerForm2">Email</label><br>
+              <input class="form-control" type="email" name="user[email]" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="registerForm3">Password</label><br>
+              <input class="form-control" type="password" name="user[password]" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="registerForm4">Confirm password</label><br>
+              <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
+            </div><br>
+            <input class="btn btn-secondary" type="submit" value="Register">
+          </form>
+        </div>
+        <div class="col-lg-6">
+        <img src="http://www.clker.com/cliparts/1/1/9/2/1206562345733194326nicubunu_Seagull_1.svg.hi.png" alt="seagul" id="seagull">
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-    <label for="registerForm2">Email</label><br>
-    <input class="form-control" type="email" name="user[email]" placeholder="Email">
-    </div>
-    <div class="form-group">
-    <label for="registerForm3">Password</label><br>
-    <input class="form-control" type="password" name="user[password]" placeholder="Password">
-    </div>
-    <div class="form-group">
-    <label for="registerForm4">Confirm password</label><br>
-    <input class="form-control" type="password" name="user[passwordConfirmation]" placeholder="Password Confirmation">
-    </div><br>
-    <input class="btn btn-primary" type="submit" value="Register">
-    </form>
     `);
   };
 
@@ -46,18 +55,27 @@ App.register = function(){
   App.login = function(){
     if(event) event.preventDefault();
     this.$main.html(`
-      <h2>Login</h2>
-      <form method="post" action="/login">
-      <div class="form-group">
-      <label for="loginFormForm">Email</label><br>
-      <input class="form-control" type="email" name="email" placeholder="Email">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <form method="post" action="/login">
+              <h2>Login</h2>
+              <div class="form-group">
+                <label for="loginFormForm">Email</label><br>
+                <input class="form-control" type="email" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label for="loginFormForm">Password</label><br>
+                <input class="form-control" type="password" name="password" placeholder="Password">
+              </div><br>
+              <input class="btn btn-secondary" type="submit" value="login">
+            </form>
+          </div>
+          <div class="col-lg-6">
+            <img src="http://www.clker.com/cliparts/1/1/9/2/1206562345733194326nicubunu_Seagull_1.svg.hi.png" alt="seagull" id="seagull">
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-      <label for="loginFormForm">Password</label><br>
-      <input class="form-control" type="password" name="password" placeholder="Password">
-      </div><br>
-      <input class="btn btn-primary" type="submit" value="login">
-      </form>
       `);
     };
 
@@ -98,12 +116,18 @@ App.register = function(){
       $(".loggedOut").hide();
       $(".loggedIn").show();
 
+      $("header").addClass('login-header');
+      $("header h1").addClass('login-h1');
+
       this.mapSetup();
     };
 
     App.loggedOutState = function(){
       $(".loggedOut").show();
       $(".loggedIn").hide();
+
+      $("header").removeClass('login-header');
+      $("header h1").removeClass('login-h1');
 
       this.login();
     };
@@ -135,7 +159,7 @@ App.register = function(){
       let mapOptions = {
         zoom: 15,
         center: new google.maps.LatLng(50.820914, -0.139804),
-        styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":"88"},{"hue":"#0021ff"},{"visibility":"on"},{"gamma":"2.59"},{"lightness":"0"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"saturation":"-27"},{"gamma":"1.74"},{"weight":"8.55"},{"lightness":"41"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"saturation":"-60"}]},{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"100"},{"gamma":"0.11"},{"lightness":"-6"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"administrative.country","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"saturation":"13"},{"weight":"1.00"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"hue":"#ff0000"}]},{"featureType":"administrative.country","elementType":"labels.text.stroke","stylers":[{"visibility":"simplified"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2dfdf"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":"33"},{"gamma":"0.89"},{"weight":"0.97"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-55"},{"lightness":"3"},{"gamma":"2.55"}]},{"featureType":"road","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"-99"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"saturation":"-100"},{"lightness":"100"},{"gamma":"8.65"},{"weight":"0.01"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"saturation":"-65"},{"lightness":"-61"},{"weight":"7.28"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#e03030"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"saturation":"100"}]},{"featureType":"road.highway.controlled_access","elementType":"all","stylers":[{"saturation":"-8"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"all","stylers":[{"saturation":"7"}]},{"featureType":"transit.station.rail","elementType":"geometry","stylers":[{"saturation":"-72"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#ff9800"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"saturation":"-10"},{"lightness":"21"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"saturation":"37"}]}]
+        styles:[{"elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#f5f5f2"},{"visibility":"on"}]},{"featureType":"administrative","stylers":[{"visibility":"off"}]},{"featureType":"transit","stylers":[{"visibility":"off"}]},{"featureType":"poi.attraction","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","stylers":[{"visibility":"off"}]},{"featureType":"poi.school","stylers":[{"visibility":"off"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#ffffff"},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"visibility":"simplified"},{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"color":"#ffffff"},{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","stylers":[{"color":"#ffffff"}]},{"featureType":"poi.park","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#71c8d4"}]},{"featureType":"landscape","stylers":[{"color":"#e5e8e7"}]},{"featureType":"poi.park","stylers":[{"color":"#8ba129"}]},{"featureType":"road","stylers":[{"color":"#ffffff"}]},{"featureType":"poi.sports_complex","elementType":"geometry","stylers":[{"color":"#c7c7c7"},{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#a0d3d3"}]},{"featureType":"poi.park","stylers":[{"color":"#91b65d"}]},{"featureType":"poi.park","stylers":[{"gamma":1.51}]},{"featureType":"road.local","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"poi.government","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","stylers":[{"visibility":"simplified"}]},{"featureType":"road"},{"featureType":"road"},{},{"featureType":"road.highway"}]
       };
 
       this.map = new google.maps.Map(canvas, mapOptions);
@@ -174,8 +198,9 @@ App.register = function(){
         this.infowindow = new google.maps.InfoWindow({
           content: `
           <div class="info">
-          <img src="${ restaurant.image }">
           <h3>${ restaurant.name }</h3>
+          <p>${ restaurant.address }</p>
+          <a href="${ restaurant.url }" target="_blank">website</a>
           </div>
           `
         });
@@ -187,7 +212,7 @@ App.register = function(){
 
     App.bindInfoWindow = function(marker, map, infoWindow, html) {
       google.maps.event.addListener(marker, 'click', function() {
-       document.getElementById('.sidebar').innerHTML = html;
+        document.getElementById('.sidebar').innerHTML = html;
       });
     };
 

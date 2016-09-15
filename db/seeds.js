@@ -48,10 +48,13 @@ function getRestaurants(uri){
       return Bluebird.map(json.restaurants, (result) => {
         let restaurantData   = {};
         restaurantData.name  = result.restaurant.name;
+        restaurantData.url   = result.restaurant.url;
+
 
         if (result.restaurant.location) {
-          restaurantData.lat   = result.restaurant.location.latitude;
-          restaurantData.lng   = result.restaurant.location.longitude;
+          restaurantData.lat      = result.restaurant.location.latitude;
+          restaurantData.lng      = result.restaurant.location.longitude;
+          restaurantData.address  = result.restaurant.location.address;
         }
 
         restaurantData.image = result.restaurant.thumb;
@@ -65,7 +68,7 @@ function getRestaurants(uri){
 
       // Let us know what we did
       data.forEach(restaurant => Restaurant.create(restaurant));
-      data.forEach(restaurant => console.log(`${restaurant.name} was saved. ${restaurant.data}`));
+      data.forEach(restaurant => console.log(`${restaurant.name} was saved: %o`, restaurant));
 
       // Make a new request increasing the starting number that we look from
       start += 20;

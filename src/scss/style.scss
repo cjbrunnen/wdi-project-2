@@ -1,3 +1,105 @@
-@import "partials/main";
-@import "partials/typography";
-@import "partials/forms";
+@import "bower";
+@import "main";
+@import "typography";
+@import "forms";
+
+header {
+  margin: 0 auto;
+  width: 100%;
+  height: 150px;
+  background: #fff;
+  border-bottom: 3px solid #333;
+
+  transition: height 0.8s linear;
+
+  h1 {
+    font-weight: 300;
+    color: #808c99;
+    font-size: 4em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    line-height: 150px;
+    transition: all 0.8s linear;
+  }
+
+  ul {
+    text-align: left;
+    list-style: none;
+    margin-top: -70px;
+
+    li {
+      display: inline-block;
+      margin: 8px 5px;
+
+      a {
+        text-decoration: none;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.login-header { height: 80px; }
+.login-h1 { line-height: 80px; font-size: 3em; }
+
+
+form {
+  margin-top: 15px;
+}
+
+#map-canvas {
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+
+#wordOne {
+  font-weight: 100;
+}
+
+#wordTwo {
+  font-weight: 400;
+}
+
+h2 {
+  color: #808c99;
+}
+
+a {
+  text-decoration: none;
+  color: #c69;
+  list-style: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.info {
+}
+
+#seagull {
+  margin-top: 85px;
+  margin-left: 11px;
+  width: 570px;
+}
+
+.footer {
+  background-color: #0C0C0C;
+  display: inline;
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+  bottom: 0px;
+  float: left;
+  clear: both;
+
+  .links{
+    list-style: none;
+    text-align: center;
+  }
+}
