@@ -54,5 +54,8 @@
     "gulp-uglify": "^2.0.0",
     "gulp-wait": "0.0.2",
     "main-bower-files": "^2.13.1"
-  }
+  },
+  "engines": {
+  "node": ">=6.x"
+}
 }
