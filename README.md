@@ -27,3 +27,7 @@ If the details are correct, they are taken through to the main page where the op
 Challenges and achievements:
 I found the api that I used had limited information about Brighton. There were some restaurants plotted (100) which show on the map and which include the information on the venue.
 I achieved a good level of styling and the page is mobile responsive.
+
+<img width="1280" alt="screen shot 2016-09-20 at 08 58 20" src="https://cloud.githubusercontent.com/assets/19531715/18662119/c46ef7c6-7f10-11e6-89ea-983fad789912.png">
+
+<img width="1280" alt="screen shot 2016-09-20 at 08 59 09" src="https://cloud.githubusercontent.com/assets/19531715/18662123/cb87a382-7f10-11e6-9a86-5fd006f81616.png">
