@@ -22,7 +22,7 @@ let uri = `https://developers.zomato.com/api/v2.1/search?&lat=${lat}&lon=${lon}&
 // &entity_type=city
 // q=${q}&lat=${lat}&lon=${lng}&radius=${radius}&count=${count}&start=${start}
 
-mongoose.connect(config.db);
+mongoose.connect("mongodb://heroku_7bz6fd98:u5f0knr2509bs1f1o0u0eim6tr@ds033116.mlab.com:33116/heroku_7bz6fd98");
 
 // Clear the restaurants from the database
 Restaurant.collection.drop();
