@@ -1,7 +1,7 @@
 const App = App || {};
 
 App.init = function() {
-  this.apiUrl = "https://brightonfoodie.herokuapp.com/api";
+  this.apiUrl = "https://brightonfoodie.herokuapp.com/api"; 
   this.$main  = $("main");
 
   $(".register").on("click", this.register.bind(this));
