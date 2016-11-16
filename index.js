@@ -37,3 +37,5 @@ function jwtErrorHandler(err, req, res, next){
 }
 
 app.listen(config.port, () => console.log(`coming in loud and clear on port: ${config.port}`));
+
+module.exports = app;
