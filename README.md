@@ -1,6 +1,11 @@
 # wdi-project-2
 This is my second project for General Assembly
 
+The inspiration:
+I wanted to center my project over Brighton as it's where I live and there are many points of interest there.
+We were tasked with using user authentication, google maps and an api/scraper to show information. 
+I chose to highlight the local restaurants.
+
 Pseudocode:
 - user is welcomed to the landing page where the name of the website, some imagery and the options to
 login | sign up | continue as guest
@@ -18,3 +23,11 @@ If the details are correct, they are taken through to the main page where the op
 - The user will be able to select one of their wish-list items and will be taken to it's latLng and info in the main page.
 - A 'sign in | sign up | logout' menu will be available at all times in the top right corner of the page.
 - If there is time, I would like to include a weather app somewhere in the page.
+
+Challenges and achievements:
+I found the api that I used had limited information about Brighton. There were some restaurants plotted (100) which show on the map and which include the information on the venue.
+I achieved a good level of styling and the page is mobile responsive.
+
+<img width="1280" alt="screen shot 2016-09-20 at 08 58 20" src="https://cloud.githubusercontent.com/assets/19531715/18662119/c46ef7c6-7f10-11e6-89ea-983fad789912.png">
+
+<img width="1280" alt="screen shot 2016-09-20 at 08 59 09" src="https://cloud.githubusercontent.com/assets/19531715/18662123/cb87a382-7f10-11e6-9a86-5fd006f81616.png">
